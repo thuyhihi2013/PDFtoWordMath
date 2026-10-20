@@ -1,0 +1,6 @@
+{
+  "name": "PDFtoWordMath",
+  "description": "Convert math PDFs, exam papers, scientific documents, and formulas into editable Microsoft Word (.docx) documents with native OMML equations, LaTeX, and MathML.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
