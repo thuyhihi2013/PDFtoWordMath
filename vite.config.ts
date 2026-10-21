@@ -2,18 +2,14 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
-
-  # Cho phép chạy thủ công từ tab Actions
+    branches: ["main", "master"] # Chạy khi có code mới đẩy lên nhánh main hoặc master
   workflow_dispatch:
 
-# Cấp quyền cho GITHUB_TOKEN để deploy lên Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Cho phép chạy 1 deployment tại 1 thời điểm
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -22,20 +18,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
-
+          node-version: "20"
+          
       - name: Install dependencies
-        run: bun install
-
-      - name: Build project
-        run: bun run build
-
+        run: npm install
+        
+      - name: Build
+        run: npm run build
+        env:
+          # Dòng này sẽ lấy API Key từ Bước 1 bạn đã cài để đưa vào web
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
