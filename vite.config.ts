@@ -1,4 +1,4 @@
-name:.github/workflows/deploy.yml
+name:github/workflows/main.yml
 
 on:
   push:
